@@ -29,6 +29,9 @@
 ;; Show file size in mode line
 (size-indication-mode t)
 
+;; Disable menu bar
+(menu-bar-mode -1)
+
 ;; Disable tool bar
 (tool-bar-mode -1)
 
