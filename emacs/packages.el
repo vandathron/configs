@@ -39,4 +39,5 @@
 
 (use-package magit
   :ensure t)  ;; Git integration
-
+(require 'protobuf-mode)
+(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
