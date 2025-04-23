@@ -25,7 +25,9 @@
 (use-package flycheck
   :ensure t
   :hook ((go-ts-mode . flycheck-mode)
-         (csharp-ts-mode . flycheck-mode)))
+         (csharp-ts-mode . flycheck-mode)
+	 (yaml-mode . flycheck-mode)
+	 (k8s-mode . flycheck-mode)))
 
 (use-package vertico
   :ensure t
@@ -41,3 +43,14 @@
   :ensure t)  ;; Git integration
 (require 'protobuf-mode)
 (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
+
+(setq load-path
+      (cons "/usr/lib/erlang/lib/tools-3.5.3/emacs"
+            load-path))
+
+(setq erlang-root-dir "/usr/lib/erlang")
+
+(setq exec-path
+      (cons "/usr/lib/erlang/bin" exec-path))
+
+(require 'erlang-start)
