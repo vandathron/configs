@@ -17,3 +17,6 @@
 (load "~/.emacs.d/lisp/projectile.el") ;; Projectile (Project management)
 (load "~/.emacs.d/lisp/keybindings.el") ;; Custom keybindings
 
+(custom-set-variables
+ '(inhibit-startup-screen t)
+ '(package-selected-packages nil))
