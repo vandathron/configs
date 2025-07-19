@@ -6,6 +6,16 @@
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 (add-hook 'go-ts-mode-hook 'eglot-ensure)
 
+;; Format code on save
+(defun goimports-after-save ()
+  (save-excursion
+      (shell-command (format "goimports -w %s" (buffer-file-name)))
+      (revert-buffer :ignore-auto :noconfirm :preserve-modes)))
+
+(add-hook 'go-ts-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'goimports-after-save nil t)))
+
 ;; Enable Eglot for C#
 (require 'csharp-mode)
 (add-hook 'csharp-mode-hook 'eglot-ensure)
@@ -18,9 +28,13 @@
                `(csharp-ts-mode . ("~/.omnisharp/OmniSharp" "--languageserver"
                                    "--hostPID" ,(number-to-string (emacs-pid))))))
 
-;; Format code on save
-(defun eglot-format-buffer-before-save ()
-  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(elixir-ts-mode . ("~/.elixir-ls/scripts/language_server.sh"))))
 
-(add-hook 'go-mode-hook #'eglot-format-buffer-before-save)
+;; Enable Eglot for Elixir
+(require 'elixir-mode)
+(add-to-list 'major-mode-remap-alist '(elixir-mode . elixir-ts-mode))
+(add-hook 'elixir-ts-mode-hook 'eglot-ensure)
+
 
